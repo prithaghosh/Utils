@@ -31,11 +31,11 @@ parser.add_argument("-o",
                     help="Name of the output file")
 args = parser.parse_args()
 
-class BedParse:
+class BedParse: # defining the BedParse class
     """
     This class reads the contents of the input BED file.
     """
-    def __init__(self, line):
+    def __init__(self, line): # initialising the BedParse class
         self.line = line
         operation = self.line.strip().split("\t")
         self.start = int(operation[1])
@@ -99,14 +99,12 @@ with open(args.out, "w") as f:
         isoform.start_norm = isoform.start - global_start_coord
         isoform.end_norm = isoform.start_norm + isoform.end - isoform.start
 
-        coord_dict[lncrna] = (isoform.block_starts, isoform.end_coords(), isoform.block_sizes)
-
         for i in range(len(isoform.block_sizes)):
             if i == 0:
-                block_1 = "*" * (isoform.end_coords()[0] - isoform.block_starts[0] + 1)
+                block_1 = "*" * isoform.block_sizes[0]
             elif i > 0:
                 gap_index = "_" * (isoform.block_starts[i] - isoform.end_coords()[i-1] - 1)
-                b_start = sum([int(x) for x in isoform.block_sizes[:i]])
+                b_start = isoform.block_starts[i]
                 b_end = b_start + isoform.block_sizes[i]
                 block_index = "*" * (b_end - b_start)
                 full_string_index += "".join([gap_index, block_index])
