@@ -90,7 +90,6 @@ boundaries, global_start_coord, global_end_coord = extract_boundaries(args.bed)
 
 block_end_coords = []
 full_string_index = ""
-coord_dict = {}
 
 with open(args.out, "w") as f:
     for lncrna in sorted(boundaries.keys()):
@@ -104,9 +103,7 @@ with open(args.out, "w") as f:
                 block_1 = "*" * isoform.block_sizes[0]
             elif i > 0:
                 gap_index = "_" * (isoform.block_starts[i] - isoform.end_coords()[i-1] - 1)
-                b_start = isoform.block_starts[i]
-                b_end = b_start + isoform.block_sizes[i]
-                block_index = "*" * (b_end - b_start)
+                block_index = "*" * (isoform.end_coords()[i] - isoform.block_starts[i])
                 full_string_index += "".join([gap_index, block_index])
 
         gap_start = "_" * isoform.start_norm
