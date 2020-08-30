@@ -32,6 +32,9 @@ parser.add_argument("-o",
 args = parser.parse_args()
 
 class BedParse:
+    """
+    This class reads the contents of the input BED file.
+    """
     def __init__(self, line):
         self.line = line
         operation = self.line.strip().split("\t")
@@ -53,6 +56,10 @@ class BedParse:
         self.end_norm = None
     
     def end_coords(self):
+        """
+        This function calculates the end coordinates of blocks,
+        based on block start coordinates and block sizes.
+        """
         block_end_coords = []
         for start, length in zip(self.block_starts, self.block_sizes):
             end = start + length - 1
@@ -60,6 +67,10 @@ class BedParse:
         return block_end_coords
 
 def extract_boundaries(bed_file):
+    """
+    This function stores the details for each RNA, and also
+    calculates the global start and end coordinates.
+    """
     my_dict = {}
     all_coordinates = []
     with open(bed_file) as f:
