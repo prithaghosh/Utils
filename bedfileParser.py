@@ -7,7 +7,7 @@ Place: Warsaw, Poland
 
 Script for parsing BED files
 Usage:
-python3 bedfileParser.py --bed bed_file --out output_file
+./bedfileParser.py --bed bed_file --out output_file
 
 For more help use:
 ./bedfileParser.py -h
